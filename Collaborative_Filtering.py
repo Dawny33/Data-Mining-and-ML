@@ -31,4 +31,4 @@ def Reccomend(username, users):
     for item in neighbour_rate:
         if not item in user_rate:
             recommendations.append((item, neighbour_rate[item]))
-    return sorted(recommendations, key=lambda itemTuple: itemTuple[1], reverse = True)	
+    return sorted(recommendations, key=lambda itemTuple: itemTuple[1], reverse = True)
