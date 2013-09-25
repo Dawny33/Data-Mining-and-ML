@@ -17,7 +17,13 @@ def __init__(self, dats, k=1, metric="pearson", n=5):
         self.data = data
     
     def ConvertProductIDtoname(self,ID):  #for returning the name if the ID no. is given
-        if id in self.productIDtoname:
+        if ID in self.productIDtoname:
             return self.productIDtoname[ID]
         else:
             return ID
+            
+    def Ratings(self, ID, n):  #for returning n top ratings for user with id = ID
+        print("The ratings for" + self.userIDtoname)
+        ratings = self.data[ID]
+    
+        
