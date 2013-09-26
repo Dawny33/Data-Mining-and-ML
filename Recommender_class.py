@@ -25,5 +25,6 @@ def __init__(self, dats, k=1, metric="pearson", n=5):
     def Ratings(self, ID, n):  #for returning n top ratings for user with id = ID
         print("The ratings for" + self.userIDtoname)
         ratings = self.data[ID]
+        
     
         
