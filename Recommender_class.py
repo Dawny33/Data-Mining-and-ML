@@ -27,6 +27,11 @@ class Recommender:
         def Ratings(self, ID, n):  #for returning n top ratings for user with id = ID
             print("The ratings for" + self.userIDtoname)
             ratings = self.data[ID]
+            print (len(ratings))
+            ratings = list(ratings.items())
+            ratings = [(self.ConvertProductIDtoname(k),v),for (k,v) in ratings]
+            
+        #Now, we sort the ratings array and return
         
     
         
