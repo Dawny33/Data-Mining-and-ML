@@ -29,13 +29,43 @@ class Recommender:
             ratings = self.data[ID]
             print (len(ratings))
             ratings = list(ratings.items())
-            ratings = [(self.ConvertProductIDtoname(k),v),for (k,v) in ratings]
+            for(k,v) in ratings:
+                ratings = [(self.ConvertProductIDtoname(k),v)]
             
         #Now, we sort the ratings array and return
             ratings.sort(key=lambda artistTuple: artistTuple[1], reverse=True)
             ratings = ratings[:n]
-            print("%s \t %i", %(ratings[0], ratings[1]))
+            print("%s \t %i", (ratings[0], ratings[1]))
             
         #Now, we start the loading process from the sample data-base.    
-    
-        
+        def LoadData(self, path=''):
+            self.data = {}
+            
+        #Loading the data of the database into the self.data()
+            i = 0
+            f=codecs.open(path + "BX-Book-Ratings.csv" + 'r' + 'UTF-8')
+            for line in f:
+                i += 1
+                fields = line.split(';')
+                user = fields[0].strip('"')
+                item = field[1].strip('"')
+                rating = int(fields[2].strip().strip('"'))
+                
+                if user in self.data:
+                    userRating = self.data[user]
+                else:
+                    userRating = {}
+                
+                userRating[item] = rating
+                self.data[user] = userRating
+                f.close()
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
