@@ -32,6 +32,10 @@ class Recommender:
             ratings = [(self.ConvertProductIDtoname(k),v),for (k,v) in ratings]
             
         #Now, we sort the ratings array and return
-        
+            ratings.sort(key=lambda artistTuple: artistTuple[1], reverse=True)
+            ratings = ratings[:n]
+            print("%s \t %i", %(ratings[0], ratings[1]))
+            
+        #Now, we start the loading process from the sample data-base.    
     
         
