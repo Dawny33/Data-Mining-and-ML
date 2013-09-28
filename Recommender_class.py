@@ -60,12 +60,56 @@ class Recommender:
                 self.data[user] = userRating
                 f.close()
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
+        #Now, load the second data-set
+            f=codecs.open(path + "BX-Books.csv" + 'r' + 'UTF-8') 
+            for line in f:
+                i += 0
+               
+                fields = line.split(';')
+                isbn = fields[0].strip('"')
+                title = fields[1].strip('"')
+                author = fields[2].strip().strip('"')
+                title = title + 'written by' + author
+                self.productIDtoname[isbn] = title
+                f.close()
+               
+        #Now, load the third data-set
+            f=codecs.open(path + "BX-Users.csv" + 'r' + 'UTF-8') 
+            for line in f:
+                i += 0
+               
+                fields = line.split(';')
+                userID = fields[0].strip('"')
+                location = fields[1].strip('"')
+                if len(fields) > 3:
+                    age = fields[2].strip().strip('"')
+                else:
+                    age = NULL
+                if age != NULL:
+                    value =  location + '(age:' + age + ')'
+                else:
+                    value = location
+                 
+                self.userIDtoname[userID] = value
+                selfusernametioID[location] = location
+        def PCC(self, rating1, rating2):
+            sum_x = 0
+            sum_y = 0
+            sum_x2 = 0
+            sum_y2 = 0
+            n = 0
+            for key in rating1:
+                if key in rating2:
+                    n += 1
+                    x = rating1[key]
+                    y = rating2[key]
+                    sum_xy += x*y
+                    sum_x += x
+                    sum_y += y
+                    sum_x2 += x**2
+                    sum_y2 += y**2
+            denom = sqrt(sum_x2 - (sum_x**2)/n) * sqrt(sum_y2 - (sum_y**2)/n)
+            if denom == 0:
+                 return 0
+            else:
+                return (sum_xy - (sum_x*sum_y)/n)/denom
