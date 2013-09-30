@@ -113,3 +113,15 @@ class Recommender:
                  return 0
             else:
                 return (sum_xy - (sum_x*sum_y)/n)/denom
+        
+        #Compute the Nearest Neighbours for the requested query
+        def ComputeNN(self,username):
+            distances = []
+            for instance in self.data:
+                if instance != username:
+                    distance = self.fn(self.data[username], self.data[instance])
+                    distances.append(instance,distance)
+            
+            distances.sort(key=lambda artistTuple: artistTuple[1], reverse=True)
+            return distances
+        
