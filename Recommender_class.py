@@ -124,4 +124,16 @@ class Recommender:
             
             distances.sort(key=lambda artistTuple: artistTuple[1], reverse=True)
             return distances
-        
+            
+        #Now, we write the same old Recommend function for recommendations.
+        def Recommend(self, user):
+            recommendations = {}
+            nearest_neighb = self.ComputeNN(user)
+            userratings = self.data[user]
+            
+            distance = 0.0
+            for i in range(self.k):
+                distance += nearest_neighb[i][1]
+                
+
+                
