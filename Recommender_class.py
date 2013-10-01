@@ -135,5 +135,17 @@ class Recommender:
             for i in range(self.k):
                 distance += nearest_neighb[i][1]
                 
-
-                
+        #Now, we check the k-nearest neighbours and their ratings.
+        for i in range(self.k):
+            weight = nearest[i][1]/distance
+            neighboursratings = self.data[name]
+            
+        #Chack all those rated by the neighbour and not by the user, and vice-versa    
+            for artist in neighboursratings:
+                if not artist in userratings:
+                    if artist not in recommendations:
+                        recommendations[artist] = (neighboursratings[artist] * weight)
+                    else:
+                         recommendations[artist] = (recommendations[artist] + neighboursratings[artist] * weight)     
+            
+            
