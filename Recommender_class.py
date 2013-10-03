@@ -147,5 +147,11 @@ class Recommender:
                         recommendations[artist] = (neighboursratings[artist] * weight)
                     else:
                          recommendations[artist] = (recommendations[artist] + neighboursratings[artist] * weight)     
-            
-            
+        #Finally, making lists from the available dictionaries.
+        recommendations = list(recommendations.items())
+        recommendations = [(self.productIDtoname(k),v) for k,v in recommendations]
+        
+        #Sorting the recommendations list(output)
+        recommendations.sort(key= lambda artistTuple:artistTuple[1], reverse=True)
+        
+        return recommendations[:self.n]
