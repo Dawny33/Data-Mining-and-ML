@@ -4,3 +4,6 @@
 # Importing libraries
 from random import choice
 from numpy import array, dot, random
+
+step = lambda x: 0 if x<1 else 1
+
