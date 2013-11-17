@@ -12,4 +12,4 @@ step = lambda x: 0 if x<1 else 1
 #The element inside "[]" and outside the parantheses of the triple is the result of an AND function of the given input elements.
 training_data = [(array([0,0,1]), 0),(array([0,1,1]), 0),(array([1,0,1]), 0),(array([1,1,1]), 1),]
 
-rand = random.rand(3) #We choose three random numbers b|w 0 and 1 for initial weights. Remember the rand function derieves the random nmbers from a Gaussian distribution.
+rand = random.rand(3) #We choose three random numbers b|w 0 and 1 for initial weights. 
