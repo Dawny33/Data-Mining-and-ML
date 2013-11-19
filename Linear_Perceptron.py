@@ -17,5 +17,6 @@ error = []  #storing errors
 lr = 0.1    #learning rate
 n = 500     #number of training examples
 
-
-
+for i in xrange(n):
+  x,expected = choice(training_data)
+  result = dot(w,x)
