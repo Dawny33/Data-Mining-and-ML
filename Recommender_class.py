@@ -43,7 +43,7 @@ class Recommender:
             
         #Loading the data of the database into the self.data()
             i = 0
-            f=codecs.open(path + "BX-Book-Ratings.csv" + 'r' + 'UTF-8')
+            f=codecs.open(path + "Books_Ratings.csv" + 'r' + 'UTF-8')
             for line in f:
                 i += 1
                 fields = line.split(';')
@@ -61,7 +61,7 @@ class Recommender:
                 f.close()
                 
         #Now, load the second data-set
-            f=codecs.open(path + "BX-Books.csv" + 'r' + 'UTF-8') 
+            f = codecs.open(path + "Books.csv" + 'r' + 'UTF-8') 
             for line in f:
                 i += 0
                
@@ -74,7 +74,7 @@ class Recommender:
                 f.close()
                
         #Now, load the third data-set
-            f=codecs.open(path + "BX-Users.csv" + 'r' + 'UTF-8') 
+            f = codecs.open(path + "Books_Users.csv" + 'r' + 'UTF-8') 
             for line in f:
                 i += 0
                
