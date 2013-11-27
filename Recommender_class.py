@@ -2,7 +2,7 @@ import codecs
 from math import sqrt
 class Recommender:
 
-    def __init__(self, dats, k=1, metric="pearson", n=5):
+    def __init__(self, data, k=1, metric="pearson", n=5):
     # k -> k in the kth nearest neighbour algorithm
     # n -> no. of recommendations to make.
 
@@ -48,7 +48,7 @@ class Recommender:
                 i += 1
                 fields = line.split(';')
                 user = fields[0].strip('"')
-                item = field[1].strip('"')
+                item = fields[1].strip('"')
                 rating = int(fields[2].strip().strip('"'))
                 
                 if user in self.data:
@@ -84,8 +84,8 @@ class Recommender:
                 if len(fields) > 3:
                     age = fields[2].strip().strip('"')
                 else:
-                    age = NULL
-                if age != NULL:
+                    age = null
+                if age != null:
                     value =  location + '(age:' + age + ')'
                 else:
                     value = location
