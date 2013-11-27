@@ -18,7 +18,7 @@ def Compute_NN(username, users):
     distances = []
     for user in users:
         if user != username:
-            dist = Manhattan(users[user], users[username])
+            dist = Manhattan_dist(users[user], users[username])
             distances.append((dist,user))
     distances.sort()
     return distances 
