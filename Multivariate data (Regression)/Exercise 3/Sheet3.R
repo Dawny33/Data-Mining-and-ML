@@ -1,0 +1,5 @@
+wk = loadWorkbook("D:\\R dir\\first ex\\Data Exercise.xlsx")
+df = readWorksheet(wk, sheet = "Exercise 3")
+head(df)
+attach(df)
+pairs(df)
