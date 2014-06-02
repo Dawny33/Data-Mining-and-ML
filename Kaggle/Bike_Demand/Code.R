@@ -7,6 +7,6 @@ fit <- lm(count ~ season*temp*atemp + humidity + windspeed + holiday*workingday,
 
 pred = predict(fit, test)
 
-print(predict)
+print(round(pred))
 
-write.csv(x = pred, file = "Kagggg2.csv",row.names = FALSE)
+write.csv(x =round(pred), file = "Kagggg3.csv",row.names = FALSE)
