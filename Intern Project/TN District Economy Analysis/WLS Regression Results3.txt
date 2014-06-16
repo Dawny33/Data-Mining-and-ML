@@ -1,0 +1,42 @@
+                            WLS Regression Results                            
+==============================================================================
+Dep. Variable:            z_score2001   R-squared:                       0.904
+Model:                            WLS   Adj. R-squared:                  0.851
+Method:                 Least Squares   F-statistic:                     17.09
+Date:                Fri, 13 Jun 2014   Prob (F-statistic):           7.91e-08
+Time:                        15:47:24   Log-Likelihood:                -7.9400
+No. Observations:                  32   AIC:                             39.88
+Df Residuals:                      20   BIC:                             57.47
+Df Model:                          11                                         
+===============================================================================================
+                                  coef    std err          t      P>|t|      [95.0% Conf. Int.]
+-----------------------------------------------------------------------------------------------
+Intercept                   -1.162e-10   4.07e-11     -2.856      0.010     -2.01e-10 -3.13e-11
+m_lit                        4.618e-06   4.34e-06      1.065      0.300     -4.43e-06  1.37e-05
+m_lit:tot_p                  1.222e-11    8.8e-12      1.388      0.180     -6.14e-12  3.06e-11
+f_lit                        2.213e-05   1.02e-05      2.176      0.042      9.14e-07  4.34e-05
+f_lit:tot_p                  9.279e-13   2.08e-11      0.045      0.965     -4.24e-11  4.42e-11
+m_lit:f_lit                 -4.941e-11   5.79e-11     -0.854      0.403      -1.7e-10  7.13e-11
+m_lit:f_lit:tot_p            5.735e-18   5.85e-18      0.981      0.339     -6.47e-18  1.79e-17
+tot_work_m                  -1.632e-05   7.05e-06     -2.317      0.031      -3.1e-05 -1.63e-06
+tot_work_m:tot_p            -2.597e-11   3.27e-11     -0.793      0.437     -9.42e-11  4.23e-11
+tot_work_f                  -1.183e-05   5.16e-06     -2.292      0.033     -2.26e-05 -1.06e-06
+tot_work_f:tot_p            -4.533e-11   5.42e-11     -0.836      0.413     -1.58e-10  6.78e-11
+tot_work_m:tot_work_f        1.749e-10   1.74e-10      1.003      0.328     -1.89e-10  5.39e-10
+tot_work_m:tot_work_f:tot_p -9.988e-18   3.05e-18     -3.270      0.004     -1.64e-17 -3.62e-18
+non_work_m                  -5.666e-06    8.8e-06     -0.644      0.527      -2.4e-05  1.27e-05
+non_work_m:tot_p             4.323e-11    5.3e-11      0.816      0.424     -6.73e-11  1.54e-10
+non_work_f                  -6.841e-06   9.01e-06     -0.760      0.456     -2.56e-05  1.19e-05
+non_work_f:tot_p             2.582e-11   3.69e-11      0.700      0.492     -5.12e-11  1.03e-10
+non_work_m:non_work_f       -1.301e-10   1.95e-10     -0.666      0.513     -5.37e-10  2.77e-10
+non_work_m:non_work_f:tot_p -4.894e-18   8.21e-18     -0.596      0.558      -2.2e-17  1.22e-17
+==============================================================================
+Omnibus:                       11.263   Durbin-Watson:                   2.176
+Prob(Omnibus):                  0.004   Jarque-Bera (JB):               24.359
+Skew:                          -0.442   Prob(JB):                     5.14e-06
+Kurtosis:                       7.182   Cond. No.                     1.87e+19
+==============================================================================
+
+Warnings:
+[1] The condition number is large, 1.87e+19. This might indicate that there are
+strong multicollinearity or other numerical problems.
