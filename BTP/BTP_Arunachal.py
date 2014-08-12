@@ -16,7 +16,7 @@ print df.shape
 
 names = ('Tawang', 'W Kameng', 'E Kameng', 'Papum Pare', 'U Subansiri', 'W Siang', 'E Siang', 'U Siang', 'Changlang', 'Tirap', 'L Subansiri', 'Kurung V', 'Dibang V','L. Dibang V', 'Lohit','Anjaw')
 y_pos = np.arange(len(names))
-population = df["Total Population Person"]
+population = df["total population person"]
 
 plt.barh(y_pos, population, align='center', alpha=0.4)
 plt.yticks(y_pos, names)
