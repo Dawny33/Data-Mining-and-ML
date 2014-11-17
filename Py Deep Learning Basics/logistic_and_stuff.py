@@ -41,3 +41,12 @@ z = x+y
 add = function([x,Param(y,default=1)],z)
 print add(33.0)
 print add(2,6)
+
+'''
+Setting names to parameters
+'''
+x,y,w = T.dscalars("x","y","w")
+z = (x+y)*w
+add_par = function([x,Param(y,default=1),Param(w,default=2,name="debalu")],z)
+print add_par(33)
+print add_par(33,6,debalu=5)
