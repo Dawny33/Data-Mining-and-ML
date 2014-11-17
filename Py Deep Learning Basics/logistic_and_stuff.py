@@ -1,6 +1,7 @@
 import theano.tensor as T
 from theano import function
 from theano import pp
+from theano import Param
 import numpy
 
 '''
@@ -30,3 +31,13 @@ mult = function([a,b],[diff,abs_diff,diff_sq])
 print mult([[0,1],[1,2]],[[-1,2],[5,7]])
 #print pp(diff)
 #print pp(abs_diff)
+
+'''
+Setting a default value for an argument
+So, if arg not give, take default value; else take the given value
+'''
+x, y = T.dscalars("x","y")
+z = x+y
+add = function([x,Param(y,default=1)],z)
+print add(33.0)
+print add(2,6)
