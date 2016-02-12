@@ -13,6 +13,7 @@ def Manhattan_dist(r1, r2):
     if key in r2:
       dist += abs(r1[key]-r2[key])
   return dist 
+
   
 def Compute_NN(username, users):
     distances = []
@@ -22,6 +23,7 @@ def Compute_NN(username, users):
             distances.append((dist,user))
     distances.sort()
     return distances 
+
 	
 def Reccomend(username, users):
     near = Compute_NN(username,users)[0][1]
