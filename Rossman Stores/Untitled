@@ -1,0 +1,89 @@
+import numpy as np
+
+def model_ensemble(*predictions, **prediction_mode):
+    '''
+    Perform Model Averaging or ensembling
+
+    (predictions instances for the different models, string) -> (array)
+    Possible options prediction_modes : ['binary', 'probs_binary, probs_multi_class, 'continuous']
+
+    binary : 0/1 binary predictions
+    probs : likelihood / probabilities
+    continuous : float / integers - continuous
+
+    *prediction takes the prediction results from either a given set of instances of a prediction or
+    all the preictions for all the intances in the prediction set
+    **prediction_mode takes the prediction mode
+
+    binary
+    ------
+    bin_one
+    >>> array([0 0 0 0 1 0 0 0 0 0 0 0 1 1 1 1 0 0 0 0 1 1 0 0 0 1 0 1 0 0])
+    bin_two
+    >>> array([0 0 0 1 0 0 1 1 1 1 0 0 0 0 1 0 1 1 0 0 1 0 1 1 1 1 0 0 0 0])
+    bin_three
+    >>> array([0 0 0 1 0 1 1 1 0 1 1 1 0 0 1 1 1 0 0 1 0 1 0 0 0 1 1 1 1 0])
+    bin_four
+    >>> array([1 0 0 0 1 0 1 1 1 0 1 0 1 1 1 0 1 0 1 0 0 0 1 1 0 1 0 1 0 1])
+    model_ensemble(bin_one, bin_two, bin_three, bin_four, mode = 'binary')
+    >>> array([0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 1, 0, 1, 0, 0])
+
+    probs_binary / probs_multi_class
+    --------------------------------
+    probs_one
+    >>>[[ 0.14130402  0.63774128]
+     [ 0.50817373  0.98390654]
+     [ 0.11188119  0.7557338 ]
+     [ 0.22295128  0.21470534]
+     [ 0.0471746   0.18134759]]
+    probs_two
+    >>> [[ 0.43791867  0.2953648 ]
+     [ 0.17505953  0.73938007]
+     [ 0.55570754  0.91328122]
+     [ 0.57098714  0.9477655 ]
+     [ 0.03664345  0.21077864]]
+    probs_three
+    >>> [[ 0.94495286  0.31086103]
+     [ 0.73768356  0.97090608]
+     [ 0.47792986  0.06297078]
+     [ 0.12999474  0.3582617 ]
+     [ 0.22364166  0.59997857]]
+    model_ensemble(probs_one, probs_two, probs_three, mode = 'probs')
+    >>> array([[ 0.94285177,  0.45720821],
+       [ 0.57108943,  0.3851022 ],
+       [ 0.52443183,  0.89947945],
+       [ 0.56761841,  0.13814018],
+       [ 0.58913088,  0.45394568]])
+
+
+    continuous
+    ----------
+    cont_one
+    >>> array([ 2, 42, 93, 52,  5, 50, 31, 54,  5, 74])
+    cont_teo
+    >>> array([61, 57, 19, 15, 30,  8, 34,  2, 65, 69])
+    cont_three
+    >>> array([35, 32, 18, 15, 56, 52, 51, 44,  6, 12])
+    model_ensemble(cont_one, cont_two, cont_three, mode = 'continuous')
+    >>> array([ 33.33,  35.33,  29.33,  33.33, 43.67,  36. ,  57.33,  48.33, 21. ,  46.67])
+    '''
+
+    for name, value in prediction_mode.items():
+        if value is 'probs':
+            # model averaging - Soft Ensembling
+            model_avg = np.array(predictions)
+            return model_avg.mean(axis = 0)
+
+        majority_vote = []
+        if value is 'binary':
+            # perform model averaging or majority vote - Hard Ensembling
+            # advisable to have odd number of models to break ties
+            for i in xrange(len(predictions)):
+                majority_vote.append(np.argmax(np.bincount((np.vstack((predictions)))[:,i])))
+            return np.array(majority_vote)
+
+        if value is 'continuous':
+            # perform model averaging
+            model_avg = (np.vstack((predictions))).mean(axis=0)
+            return model_avg

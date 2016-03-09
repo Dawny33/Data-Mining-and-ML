@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.kaggle.com/c/rossmann-store-sales/data -->
+<html class="gr__kaggle_com"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="./Data - Rossmann Store Sales _ Kaggle_files/css" rel="stylesheet" type="text/css"> 
+
+    
+    <link rel="stylesheet" href="./Data - Rossmann Store Sales _ Kaggle_files/font-awesome.min.css">
+
+    
+    
+    <title>Data - Rossmann Store Sales | Kaggle</title>
+    
+    <meta name="robots" content="index, follow">
+    <link href="https://www.kaggle.com/content/v/4e3f994e938b/kaggle/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    
+        <meta name="keywords" content="Kaggle, data science, big analytics, data mining, forecasting, statistics, prediction, bioinformatics, competitions, contests, crowdsourced analytics">
+            <meta name="description" content="Kaggle is a platform for data prediction competitions. Companies, organizations and researchers post their data and have it scrutinized by the world&#39;s best statisticians.">
+
+            <link rel="stylesheet" href="./Data - Rossmann Store Sales _ Kaggle_files/base.less" type="text/css">
+        <link rel="stylesheet" href="./Data - Rossmann Store Sales _ Kaggle_files/kaggle-site.less" type="text/css">
+
+        <script type="text/javascript" async="" src="./Data - Rossmann Store Sales _ Kaggle_files/ga.js"></script><script type="text/javascript" src="./Data - Rossmann Store Sales _ Kaggle_files/jquery-1.7.2.min.js"></script>
+            <script type="text/javascript" src="./Data - Rossmann Store Sales _ Kaggle_files/jquery-ui-1.9.2.min.js"></script>
+
+    
+        <script type="text/javascript" src="./Data - Rossmann Store Sales _ Kaggle_files/kaggle.min.js"></script>
+        <script type="text/javascript">
+            
+            Kaggle.Current.siteId = 1;
+                Kaggle.Current.competitionId = 4594;
+                            Kaggle.Current.userId = 117487;
+        </script>
+
+    
+    <!--[if (gte IE 6)&(lte IE 8)]>
+        <script type="text/javascript" src="/content/v/f1f17fea7cee/shared/js/ie/selectivizr.min.js"></script>
+    <![endif]-->
+
+    
+                                            <script type="text/javascript" src="./Data - Rossmann Store Sales _ Kaggle_files/MathJax.js"></script>
+    
+                                                                    
+                    <link rel="apple-touch-icon" href="https://www.kaggle.com/content/v/1e4cdaa83f46/kaggle/img/apple-touch-icon.png">
+
+
+    
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">.MathJax_Preview .MJXc-math {color: inherit!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXc-script {font-size: .8em}
+.MJXc-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXc-bold {font-weight: bold}
+.MJXc-italic {font-style: italic}
+.MJXc-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXc-largeop {font-size: 150%}
+.MJXc-largeop.MJXc-int {vertical-align: -.2em}
+.MJXc-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXc-display {display: block; text-align: center; margin: 1em 0}
+.MJXc-math span {display: inline-block}
+.MJXc-box {display: block!important; text-align: center}
+.MJXc-box:after {content: " "}
+.MJXc-rule {display: block!important; margin-top: .1em}
+.MJXc-char {display: block!important}
+.MJXc-mo {margin: 0 .15em}
+.MJXc-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXc-denom {display: inline-table!important; width: 100%}
+.MJXc-denom > * {display: table-row!important}
+.MJXc-surd {vertical-align: top}
+.MJXc-surd > * {display: block!important}
+.MJXc-script-box > *  {display: table!important; height: 50%}
+.MJXc-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXc-script-box > *:last-child > * {vertical-align: bottom}
+.MJXc-script-box > * > * > * {display: block!important}
+.MJXc-mphantom {visibility: hidden}
+.MJXc-munderover {display: inline-table!important}
+.MJXc-over {display: inline-block!important; text-align: center}
+.MJXc-over > * {display: block!important}
+.MJXc-munderover > * {display: table-row!important}
+.MJXc-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXc-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXc-mtr {display: table-row!important}
+.MJXc-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXc-mtr > .MJXc-mtd:first-child {padding-left: 0}
+.MJXc-mtr:first-child > .MJXc-mtd {padding-top: 0}
+.MJXc-mlabeledtr {display: table-row!important}
+.MJXc-mlabeledtr > .MJXc-mtd:first-child {padding-left: 0}
+.MJXc-mlabeledtr:first-child > .MJXc-mtd {padding-top: 0}
+.MJXc-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXc-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXc-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXc-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXc-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXc-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXc-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXc-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXc-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXc-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXc-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_CHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="logged-in    kaggle"><div id="MathJax_Message" style="display: none;"></div>
+    <div id="watermark1" class=""></div>
+    <div id="watermark2" class=""></div>
+    <div id="wrap"><!-- needed for sticky footer -->
+
+
+<div id="menu-open-overlay"></div>
+
+<div id="header2" class="">
+    <div id="header2-inside" class="">
+        <a id="logo" href="https://www.kaggle.com/"><img alt="Kaggle" height="86" src="./Data - Rossmann Store Sales _ Kaggle_files/site-logo.png" width="240"></a>
+
+            <ul id="header-ul">
+                <li>
+  <a href="https://www.kaggle.com/solutions/competitions">Host</a>
+</li>
+<li>
+  <a href="https://www.kaggle.com/competitions">Competitions</a>
+</li>
+<li>
+  <a href="https://www.kaggle.com/scripts">Scripts</a>
+</li>
+<li>
+  <a href="https://www.kaggle.com/jobs">Jobs</a>
+</li>
+<li>
+<a href="">Community ▾</a>
+<ul>
+  <li><a href="https://www.kaggle.com/users">User Rankings</a></li>
+  <li><a href="https://www.kaggle.com/forums">Forum</a></li>
+  <li><a href="http://blog.kaggle.com/" target="_blank">Blog</a></li>
+  <li><a href="https://www.kaggle.com/Wiki">Wiki</a></li>
+</ul>
+</li><!-- <script>
+  $(function(){
+    if (!$('body.logged-in').length) {
+      $('a.logged-in-only').hide().parent().next().find('a').css('padding-top','10px');
+    }
+  });
+</script> -->
+            </ul>
+
+        <script>
+            jQuery(function () {
+                jQuery('#header-ul li:has(ul) > a').click(function (e) {
+                    e.preventDefault();
+
+                    jQuery('#header-ul li').not(jQuery(this).parent()).find('ul').removeClass('open');
+                    jQuery(this).parent().find('ul').toggleClass('open');
+                    jQuery('#menu-open-overlay').show();
+                });
+
+                jQuery('#menu-open-overlay').click(function () {
+                    jQuery('#header-ul ul').removeClass('open');
+                    jQuery('#top-bar-signin').hide();
+                    jQuery(this).hide();
+                });
+
+            });
+        </script>
+
+        <ul id="header-control">
+                <li id="header-account"><a class="profilelink" href="https://www.kaggle.com/dawny33" title="View my profile">Dawny</a></li>
+                <li id="header-logout"><a href="https://www.kaggle.com/account/logoff" class="logout-link">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+        
+
+        <!-- header-inside and header -->
+            <div id="main">
+                
+
+
+
+
+
+<div id="competition" @html.attr('class',="" 'prospecting',="" competition.inprospectingphase).add(ispreview="" ?="" 'preview'="" :="" '')="">                <header id="comp-header">
+                    <a href="https://www.kaggle.com/c/rossmann-store-sales"><img id="comp-image" src="./Data - Rossmann Store Sales _ Kaggle_files/front_page.png" alt=""></a>
+                    <div id="comp-header-details">
+                        <h2>
+
+                    $35,000 
+                        • <a href="https://www.kaggle.com/c/rossmann-store-sales/leaderboard">906 teams</a>
+                </h2>
+                <h1><a href="https://www.kaggle.com/c/rossmann-store-sales" style="font-size: 26px;">Rossmann Store Sales</a>
+                        </h1>
+
+                        
+
+                            <div id="comp-header-stats">
+                                    <div id="comp-header-stats-progress-section">
+                                        <div id="comp-header-stats-progress">
+                                            <div id="comp-header-stats-teams" style="width:17%">
+                                            </div>
+                                        </div>
+                                        <div id="comp-progress-start"></div>
+                                        <div id="comp-progress-end"></div>
+
+
+
+                                            <div class="comp-progress-milestone prohibit-entrants" style="left:90.72822%;">
+
+                                                <div class="circle" style="background:blue"></div>
+                                                <div class="milestone-key">Merger and 1st Submission Deadline</div>
+
+                                                <div class="milestone-caption">
+                                                    <h2>
+                                                        <strong>7 Dec</strong><br>
+                                                        55 days
+                                                    </h2>
+                                                    <h3>
+                                                        Deadline for new entry &amp; team mergers
+                                                    </h3>
+                                                </div>
+
+                                            </div>
+
+
+                                    </div>
+
+                                <div id="comp-header-stats-start">
+                                    Wed 30 Sep 2015
+                                </div>
+                                <div id="comp-header-stats-end">
+                                    Mon 14 Dec 2015
+                                        <span class="to-go-note">
+                                            (2 months to go)
+                                        </span>
+                                </div>
+                            </div>
+                    </div>
+                </header>
+                <script type="text/javascript">
+                    jQuery(function ($) {
+                        $('#comp-header-details h1').textfill({ maxFontPixels: 26, innerTag: 'a' });
+                    });
+                </script>
+            <div class="comp-sidebar">
+                
+
+
+<div class="_panel" id="competition-dashboard">
+    <header>
+        <h1>Dashboard</h1>
+    </header>
+    <ul id="competition-dashboard-dropdown">
+        <li class="cd-home">
+            <a href="https://www.kaggle.com/c/rossmann-store-sales">Home</a>
+            <ul>
+                <li class="cd-data selected"><a href="./Data - Rossmann Store Sales _ Kaggle_files/Data - Rossmann Store Sales _ Kaggle.html">Data</a></li>
+
+                    <li class="cd-submit submission-link">
+                        <a class="comp-link" href="https://www.kaggle.com/c/rossmann-store-sales/submit">Make a submission</a>
+                    </li>
+            </ul>
+        </li>
+
+        <li class="cd-info">
+            <a id="open-info">Information</a>
+            <ul id="pages-flyout">
+                    <li>
+<a href="https://www.kaggle.com/c/rossmann-store-sales">Description</a>                    </li>
+                    <li>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/details/evaluation">Evaluation</a>                    </li>
+                    <li>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/rules">Rules</a>                    </li>
+                    <li>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/details/prizes">Prizes</a>                    </li>
+                    <li>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/details/timeline">Timeline</a>                    </li>
+
+            </ul>
+        </li>
+
+            <li class="cd-forum"><a href="https://www.kaggle.com/c/rossmann-store-sales/forums">Forum</a></li>
+
+            <li class="cd-scripts">
+                <a class="comp-link" href="https://www.kaggle.com/c/rossmann-store-sales/scripts">Scripts</a>
+                <ul class="flyout">
+                    <li><a href="https://www.kaggle.com/c/rossmann-store-sales/scripts/new">New Script</a></li>
+                </ul>
+            </li>
+
+            <li class="cd-leaderboard">
+                <a href="https://www.kaggle.com/c/rossmann-store-sales/leaderboard">Leaderboard</a>
+            </li>
+
+
+                <li class="cd-team">
+                    <a href="https://www.kaggle.com/c/rossmann-store-sales/team">My Team</a>
+                    <ul>
+                        
+                                            </ul>
+                </li>
+                <li class="cd-submissions"><a href="https://www.kaggle.com/c/rossmann-store-sales/submissions">My Submissions</a></li>
+
+
+    </ul>
+</div>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".cd-data").addClass("selected");
+        });
+    </script>
+
+                
+                        <div id="partial-mini-leaderboard">    <div class="widget _panel" id="compside-leaderboard">
+        <header>
+            <h1><a href="https://www.kaggle.com/c/rossmann-store-sales/leaderboard">Leaderboard</a></h1>
+        </header>
+
+        <ol>
+                <li value="1">Oleg Agapkin &amp; Sergey Makarevich</li>
+                <li value="2">GIVE ME A TOP1 SCRIPT ^_^</li>
+                <li value="3">( ͡° ͜ʖ ͡°)</li>
+                <li value="4">Black Ice</li>
+                <li value="5">Pepan</li>
+                <li value="6">Ada Adamczak</li>
+                <li value="7">BreakfastPirate</li>
+                <li value="8">Shize Su</li>
+                <li value="9">Leandro dos Santos Coelho</li>
+                <li value="10">Alexander  Larko</li>
+        </ol>
+    </div>
+</div>
+                        <script type="text/javascript">
+                            jQuery(function ($) {
+                                $("#partial-mini-leaderboard").load("/c/4594/partial/mini-leaderboard");
+                            });
+                        </script>
+                        <div id="partial-mini-scripts"><div class="widget _panel" id="compside-scripts">
+    <header>
+        <h1><a href="https://www.kaggle.com/c/rossmann-store-sales/scripts">301 Scripts</a></h1>
+    </header>
+
+    <ul>
+            <li>
+                <div class="script-title"><a href="https://www.kaggle.com/thie1e/rossmann-store-sales/exploratory-analysis-rossmann">Exploratory Analysis Rossmann</a></div>
+                <div class="script-meta">42 Votes / 2 days ago / RMarkdown</div>
+            </li>
+            <li>
+                <div class="script-title"><a href="https://www.kaggle.com/mlandry/rossmann-store-sales/random-forest-example">H2O Random Forest Example (0.11578)</a></div>
+                <div class="script-meta">24 Votes / 4 days ago / R</div>
+            </li>
+            <li>
+                <div class="script-title"><a href="https://www.kaggle.com/michaelpawlus/rossmann-store-sales/obligatory-xgboost-example">Random Forest Example (0.12579)</a></div>
+                <div class="script-meta">15 Votes / 6 days ago / R</div>
+            </li>
+            <li>
+                <div class="script-title"><a href="https://www.kaggle.com/dvasyukova/rossmann-store-sales/predict-sales-with-pandas-py">predict_sales_with_pandas.py</a></div>
+                <div class="script-meta">7 Votes / 5 days ago / Python</div>
+            </li>
+            <li>
+                <div class="script-title"><a href="https://www.kaggle.com/zygmunt/rossmann-store-sales/predict-sales-with-pandas-py">predict_sales_with_pandas.py</a></div>
+                <div class="script-meta">9 Votes / 8 days ago / Python</div>
+            </li>
+            <li>
+                <div class="script-title"><a href="https://www.kaggle.com/paso84/rossmann-store-sales/xgboost-in-python-with-rmspe">XGBoost in python with RMSPE</a></div>
+                <div class="script-meta">5 Votes / 5 days ago / Python</div>
+            </li>
+    </ul>
+</div>
+</div>
+                        <script type="text/javascript">
+                            jQuery(function ($) {
+                                $("#partial-mini-scripts").load("/c/4594/scripts/hot/widget");
+                            });
+                        </script>
+
+
+    <div class="widget _panel" id="compside-discussions">
+        <header>
+            <h1><a href="https://www.kaggle.com/c/rossmann-store-sales/forums">Forum (62 topics)</a></h1>
+        </header>
+
+        <ul>
+                <li>
+                    <div class="post-title"><a href="https://www.kaggle.com/c/rossmann-store-sales/forums/t/16942/the-solution-is-the-mean/95953#post95953">The solution is the mean?</a></div>
+                    <div class="post-time">1 hour ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://www.kaggle.com/c/rossmann-store-sales/forums/t/16969/test-contains-only-856-stores-why-should-i-use-remaining-stores/95952#post95952">Test contains only 856 stores, why should I use remaining stores?</a></div>
+                    <div class="post-time">1 hour ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://www.kaggle.com/c/rossmann-store-sales/forums/t/16968/xgboost-early-stopping-rounds/95882#post95882">XGBoost early_stopping_rounds</a></div>
+                    <div class="post-time">12 hours ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://www.kaggle.com/c/rossmann-store-sales/forums/t/16846/interested-in-teaming-up/95881#post95881">Interested in teaming up</a></div>
+                    <div class="post-time">12 hours ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://www.kaggle.com/c/rossmann-store-sales/forums/t/16964/use-of-data-for-academic-research/95832#post95832">Use of Data for Academic Research</a></div>
+                    <div class="post-time">16 hours ago</div>
+                </li>
+                <li>
+                    <div class="post-title"><a href="https://www.kaggle.com/thie1e/rossmann-store-sales/exploratory-analysis-rossmann/discussion/comment/95824#post95824">Exploratory Analysis Rossmann</a></div>
+                    <div class="post-time">18 hours ago</div>
+                </li>
+        </ul>
+
+    </div> 
+                    <div id="partial-stats-ticker">
+
+    <div id="stats-ticker">
+        <div id="teams" class="ticker">
+                <div class="numbers converted"><div class="ticker-number ticker-9"></div><div class="ticker-number ticker-0"></div><div class="ticker-number ticker-5"></div></div>
+                <div class="ticker-caption">teams</div>
+        </div>
+        
+        <div id="players" class="ticker">
+            <div class="numbers converted"><div class="ticker-number ticker-9"></div><div class="ticker-number ticker-5"></div><div class="ticker-number ticker-9"></div></div>
+            <div class="ticker-caption">players</div>
+        </div>
+
+        <div id="entries" class="ticker">
+            <div class="numbers converted"><div class="ticker-number ticker-7"></div><div class="ticker-number ticker-8"></div><div class="ticker-number ticker-7"></div><div class="ticker-number ticker-3"></div></div>
+            <div class="ticker-caption">entries</div>
+        </div>
+    </div>
+    
+</div>
+                    <script type="text/javascript">
+                        jQuery(function ($) {
+                            $("#partial-stats-ticker").load("/c/4594/partial/stats");
+                        });
+                    </script>
+            </div>
+    <div class="data---rossmann-store-sales-page comp-content with-sidebar _panel">
+            <header class="data">
+                <div class="simple-steps">
+                    <a class="info" href="https://www.kaggle.com/c/rossmann-store-sales">Competition Details</a>
+                    »
+                    <a class="data" href="./Data - Rossmann Store Sales _ Kaggle_files/Data - Rossmann Store Sales _ Kaggle.html">Get the Data</a>
+                        »
+                        <a class="submit" href="https://www.kaggle.com/c/rossmann-store-sales/submit">Make a submission</a>
+                </div>
+                    </header>
+                <div class="comp-content-inside">
+                    <div id="competition-intro">
+
+                    </div>
+
+
+
+
+
+<h3>Data Files</h3>
+
+
+
+    <table id="data-files" class="nicetable full roomy align-top border">   
+        <thead>
+            <tr>
+                <th colspan="2">File Name</th> 
+                <th>Available Formats</th>         
+            </tr> 
+        </thead>
+
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">sample_submission.csv</td>
+                    <td>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/download/sample_submission.csv.zip" name="sample_submission.csv.zip">.zip (55.25 kb)</a>                    </td>
+                </tr>
+
+            </tbody>
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">store.csv</td>
+                    <td>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/download/store.csv.zip" name="store.csv.zip">.zip (8.33 kb)</a>                    </td>
+                </tr>
+
+            </tbody>
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">test.csv</td>
+                    <td>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/download/test.csv.zip" name="test.csv.zip">.zip (143.25 kb)</a>                    </td>
+                </tr>
+
+            </tbody>
+            <tbody>
+                <tr>
+
+                    <td class="file-name" colspan="2" rowspan="1">train.csv</td>
+                    <td>
+<a href="https://www.kaggle.com/c/rossmann-store-sales/download/train.csv.zip" name="train.csv.zip">.zip (5.66 mb)</a>                    </td>
+                </tr>
+
+            </tbody>
+    </table>
+    <script type="text/javascript">
+        $(function () {
+
+            // Decorate obselete files
+            $('#data-files a.obsolete').each(function () {
+                var obsoleteMsg = "Superseded by newer version";
+                if ($(this).data('msg')) {
+                    obsoleteMsg = $(this).attr('data-msg');
+                }
+
+                $(this).attr('title', obsoleteMsg);
+            });
+
+            // If we have a search parameter, try to immediately download the
+            // file of that name.
+            var search = this.location.search;
+            if (search.length) {
+                var selector = "#data-files a[name=\"" + search.substr(1) + "\"]";
+                var fileLink = $(selector);
+                if (fileLink.length == 1) {
+                        this.location = fileLink.prop("href");
+                }
+            }
+        });
+    </script>
+
+<div class="cms-page">
+    
+
+    <p>You are provided with historical sales data for&nbsp;1,115 Rossmann stores. The task is to forecast the "Sales" column for the test set.&nbsp;Note that some stores in the dataset were temporarily closed&nbsp;for refurbishment.</p>
+<h3>Files</h3>
+<ul>
+<li><strong>train.csv</strong> - historical data including&nbsp;Sales</li>
+<li><strong>test.csv</strong> -&nbsp;historical data excluding&nbsp;Sales</li>
+<li><strong>sample_submission.csv</strong> - a sample submission file in the correct format</li>
+<li><strong>store.csv</strong> - supplemental information about the stores</li>
+</ul>
+<h3>Data fields</h3>
+<p>Most of the fields are self-explanatory. The following&nbsp;are descriptions for those that aren't.</p>
+<ul>
+<li><strong>Id</strong> - an Id that represents a (Store, Date) duple within the test set</li>
+<li><strong>Store</strong> -&nbsp;a unique Id for each store</li>
+<li><strong>Sales</strong> - the turnover for any given day (this is what you are predicting)</li>
+<li><strong>Customers</strong> - the number of customers on a given day</li>
+<li><strong>Open</strong> - an indicator for whether the store was open: 0 = closed, 1 = open</li>
+<li><strong>StateHoliday</strong> -&nbsp;indicates&nbsp;a state holiday. Normally all stores, with few exceptions, are closed on state holidays. Note that all schools are closed on public holidays and weekends. a = public holiday, b = Easter holiday, c = Christmas, 0 = None</li>
+<li><strong>SchoolHoliday</strong> -&nbsp;indicates&nbsp;if the&nbsp;(Store, Date)&nbsp;was affected by the closure of public schools</li>
+<li><strong>StoreType</strong>&nbsp;-&nbsp;differentiates between 4 different store models: a, b, c, d</li>
+<li><strong>Assortment</strong> -&nbsp;describes an assortment level: a = basic, b = extra,&nbsp;c = extended</li>
+<li><strong>CompetitionDistance</strong> - distance in meters to the nearest competitor store</li>
+<li><strong>CompetitionOpenSince[Month/Year]</strong> - gives the approximate year and month of the time the nearest competitor was opened</li>
+<li><strong>Promo</strong> - indicates whether a store is running a promo on that day</li>
+<li><strong>Promo2</strong> - Promo2&nbsp;is a continuing and consecutive promotion for some stores: 0 = store is not participating, 1 = store is participating</li>
+<li><strong>Promo2Since[Year/Week]</strong> -&nbsp;describes the year and calendar week when the store started&nbsp;participating in&nbsp;Promo2</li>
+<li><strong>PromoInterval</strong> -&nbsp;describes&nbsp;the consecutive intervals Promo2&nbsp;is started, naming the months the promotion is started anew. E.g. "Feb,May,Aug,Nov" means each round starts in February, May, August, November of any given year for that store</li>
+</ul>
+</div>
+
+                </div>
+            </div>  
+        </div>
+    
+
+
+            </div>
+    </div> <!-- wrap -->
+    
+        <div id="footer">
+            <div id="footer-inside">
+                <div id="footer-social">
+                        <div id="social-links">
+            <a class="twitter" href="http://www.twitter.com/kaggle" title="Follow Kaggle on Twitter"></a>     
+                    <a class="facebook" href="http://www.facebook.com/kaggle" title="Follow Kaggle on Facebook"></a>           
+                    <a class="linkedin" href="http://www.linkedin.com/companies/kaggle" title="Follow Kaggle on LinkedIn"></a>        
+    </div><!-- social-links -->
+
+                </div>
+                <div id="footer-copyright">
+                    
+
+
+© 2015 Kaggle Inc                </div>
+                <div id="footer-links">
+                    <a href="https://www.kaggle.com/about">About</a>
+<a href="https://www.kaggle.com/team">Our Team</a>
+<a href="https://www.kaggle.com/careers">Careers</a>
+<a href="https://www.kaggle.com/terms">Terms</a>
+<a href="https://www.kaggle.com/privacy">Privacy</a> 
+<!--<a href="/Home/ContactPress">Press</a>-->
+<a href="https://www.kaggle.com/Home/contact">Contact/Support</a>
+                </div> <!-- footer-links -->
+            </div> <!-- footer-inside -->
+        </div> <!--footer-->
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                "HTML-CSS": {
+                    preferredFont: "TeX",
+                    availableFonts: ["STIX","TeX"],
+                    linebreaks: {
+                        automatic: true
+                    },
+                    EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+                },
+                tex2jax: {
+                    inlineMath: [ ["\\\\(","\\\\)"] ],
+                    displayMath: [ ["$$","$$"], ["\\[", "\\]"] ],
+                    processEscapes: true,
+                    ignoreClass: "tex2jax_ignore|dno"
+                },
+                TeX: {
+                    noUndefined: {
+                        attributes: {
+                            mathcolor: "red",
+                            mathbackground: "#FFEEEE",
+                            mathsize: "90%"
+                        }
+                    }
+                },
+                messageStyle: "none"
+            });
+        </script>
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-12629138-1']);
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+            _gaq.push(['_setCustomVar', 1, 'usertype', 'registered', 2]);
+                _gaq.push(['_setCustomVar', 2, 'userid', '117487', 2]);
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <script type="text/javascript">
+            /**
+        * Function that tracks a click on an outbound link in Google Analytics.
+        * This function takes a valid URL string as an argument, and uses that URL string
+        * as the event label.
+        * See: https://support.google.com/analytics/answer/1136920?hl=en
+        */
+            var trackOutboundLink = function(url) {
+                ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
+                        function () {
+                            document.location = url;
+                        }
+                });
+            }
+        </script>
+
+
+    
+
+    <!-- Cheers, RD00155D486AFCp. -->
+
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>
