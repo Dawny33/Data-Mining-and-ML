@@ -1,0 +1,325 @@
+model "SantasSledges_MIPslave"
+
+(!
+  Simple MIP formulation for the
+  
+  Kaggle Santa Rideshare Optimization Challenge
+  Capicitated Vehicle Routing Problem (a twist of traveling salesman problem)
+  Given a list of gifts, weights, and their locations, deliver them in sleighs with a weight limit
+  All sleighs start from north pole, then head to each gift in the order that a user gives, and then head back to north pole
+  Sleighs have a base weight
+  "Weighted distance" = distance traveled * weights carried for that segment
+  Goal: minimize the total weighted distance traveled
+
+  A possible MIP formulation (of problem size O( Locations^2 * sledges * gifts )
+    model each gifts path using binary variables, per edge, and per sledge
+    model each sledge's path using binary variables
+    assign gifts to sledges taking capacity into account
+    the gifts' path should be superseded by the sledge's path that is assigned to it
+    note: travel time * weight can be priced individually 
+    
+  The number of sledges is not limited, so we can assume a sledge cannot go back to the Pole to pick up a second round as such
+    a round can be served by another sledge    
+    
+  This formulation is for demonstration only; due to the combinatoric nature of the formulation, the MIP problem generated will become intractable
+    very quickly. 
+!)
+
+uses "mmxprs", "mmsheet"
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		
+! Data set up
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+parameters
+  ! Data file and time limit; there are overwritten by the master problem
+  FILE="gift_cluster_3516.dat"
+  TIME=10
+  THREADS=1
+	
+  ! Fixed parameters
+  SLEDGECAPACITY = 1000 
+  SLEDGEWEIGHT   = 10	
+  
+  ! Model parameters
+  MAXSLEDGES = 10
+  
+  ! Radius of earth 
+  r = 100
+end-parameters
+
+! The arcsin function derived from the arctan
+function arcsin(r:real): real
+  if abs(r)<1 then
+    returned:=2*arctan((r/(1+(1-r^2)^0.5)))
+  else
+    writeln("Math error")
+  end-if 
+end-function
+
+! A haversine function
+function haversine( latitude1 : real, longitude1 : real, 
+                    latitude2 : real, longitude2 : real ) : real
+  returned := 2*r*arcsin( sqrt( sin((latitude2-latitude1)/2)^2 + 
+    cos(latitude1)*cos(latitude2)*sin((longitude2-longitude1)/2)^2 ) )  
+end-function
+
+declarations 
+  ! Input datafile contents
+  GiftIDs  : set of integer
+  Latitude : array(GiftIDs) of real
+  Longitude: array(GiftIDs) of real
+  Weight   : array(GiftIDs) of real
+ 
+  ! Location of the North Pole
+  POLE_LATITUDE  = 90
+  POLE_LONGITUDE = 0
+ 
+  ! Locations set (this will be GiftIDs+the pole if all gift locations are unique)
+  Locations : set of integer
+ 
+  ! Set of Sledges
+  Sledges = 1..MAXSLEDGES
+ 
+  ! Distances between locations
+  Distances : array(Locations, Locations) of real
+ 
+  ! Where gifts are going (1-1 correspondence in the default model)
+  GiftDestination : array(GiftIDs) of integer
+ 
+  ! Gift path variables
+  giftUseEdge: array(Sledges, GiftIDs, Locations, Locations) of mpvar  	
+
+  ! Gift to sledge assignments
+  giftUseSledge : array(GiftIDs, Sledges) of mpvar	
+
+  ! Sledge travel path variables
+  sledgeUseEdge: array(Sledges, Locations, Locations) of mpvar  		
+  sledgeFinal : array(Sledges, Locations) of mpvar
+end-declarations
+
+writeln("Solving for cluster file ", FILE)
+
+! Read data from csv file
+initializations from "mmsheet.csv:"+FILE
+  [Latitude,Longitude,Weight] as "skiph;[A:D]"
+end-initializations
+
+writeln("  Gift count ", getsize(GiftIDs))
+
+! Locations = the Pole, represented by "0" and the gift target positions
+Locations := {0} + GiftIDs;
+
+! Where presents are going (1-1 correspondence in the default model)
+forall(p in GiftIDs) GiftDestination(p) := p
+
+! Calculate distances
+forall(c in Locations, d in Locations) do
+  ! If between two gift locations
+  if (c <> 0 and d <> 0) then  
+    Distance(c,d) := haversine( Latitude(c), Longitude(c), Latitude(d), Longitude(d) )
+  elif (c = 0 and d <> 0) then
+    ! Going from the Pole  		    
+    Distance(0,d) := haversine( POLE_LATITUDE, POLE_LONGITUDE, Latitude(d), Longitude(d) )
+  elif (c <> 0) then
+    ! Going to the Pole
+    Distance(c,0) := haversine( Latitude(c), Longitude(c), POLE_LATITUDE, POLE_LONGITUDE )
+  else 
+    ! Stay put at the Pole
+    Distance(0,0) := 0  	
+  end-if  
+end-do
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		
+! Gift path constraints		
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Edge selection is boolean
+forall(s in Sledges, p in GiftIDs, c in Locations, d in Locations) do
+  create( giftUseEdge(s, p, c,d) )
+  giftUseEdge(s, p, c,d) is_binary
+end-do
+
+! Prevent using loop edges
+forall(s in Sledges, p in GiftIDs, c in Locations) giftUseEdge(s, p, c,c) = 0
+
+! Gifts must travel from Pole to destination
+forall( p in GiftIDs ) do	
+  ! All gifts must leave the Pole
+  sum( s in Sledges, c in Locations ) giftUseEdge( s, p, 0, c ) = 1
+  ! And no coming back
+  sum( s in Sledges, c in Locations ) giftUseEdge( s, p, c, 0 ) = 0
+end-do
+
+! For the destination, one edge must come in 
+forall( p in GiftIDs) do	
+  sum( s in Sledges, c in Locations ) giftUseEdge( s, p, c, GiftDestination(p) ) = 1
+  ! and none going out
+  sum( s in Sledges, c in Locations ) giftUseEdge( s, p, GiftDestination(p), c ) = 0
+end-do
+
+! With the exception of the Pole and the destination, the number of edges in 
+! and out must be the same
+forall(s in Sledges, p in GiftIDs, c in Locations | 
+       c <> 0 and c <> GiftDestination(p))
+  sum( d in Locations ) giftUseEdge( s, p, d, c ) = 
+  sum( d in Locations ) giftUseEdge( s, p, c, d )
+
+! Note, there will be no loops created in the optimal solution due to the objective	
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		
+! Sledge travel paths
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+! If use edge
+forall(s in Sledges, c in Locations, d in Locations) do
+  create( sledgeUseEdge(s,c,d) ) 
+  sledgeUseEdge(s,c,d) is_binary
+end-do
+
+! Prevent using loop edges
+forall(s in Sledges, c in Locations) sledgeUseEdge(s,c,c) = 0
+
+! All sledges have a designated end city (can be the pole)
+forall(s in Sledges, c in Locations) do
+  create( sledgeFinal(s, c) )
+  sledgeFinal(s, c) is_binary
+end-do
+
+! Only one designated end city
+forall(s in Sledges) sum(c in Locations) sledgeFinal(s, c) = 1
+
+! With the exception of the Pole and the destination, the number of edges in 
+! and out must be the same 
+! (This alone would allow to go home to pick up another gift)
+forall(s in Sledges, c in Locations | c <> 0) 
+  sum( d in Locations ) sledgeUseEdge( s, d, c ) = 
+  sum( d in Locations ) sledgeUseEdge( s, c, d ) + sledgeFinal(s, c) 	
+
+! Each sledge can only leave each location once.
+! Relaxing this constraint would mean that a sledge can temporarily leave 
+! gifts at a location to be picked up later and due to the relatively
+! light weigth of a sledge cause a travel path in a flower shape
+forall(s in Sledges, d in Locations)
+  sum( c in Locations ) sledgeUseEdge( s, d, c ) <= 1
+
+! Or come in once
+forall(s in Sledges, d in Locations)
+  sum( c in Locations ) sledgeUseEdge( s, c, d ) <= 1
+
+	
+! Prevent sledges from travelling home using normal travel variables.
+! This makes sense due to the relatively small weight of a sledge, that would 
+! allow the MIP search to stop with such edges still active.
+! This should also help presolve
+forall(s in Sledges, c in Locations) sledgeUseEdge( s, c, 0 ) = 0
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		
+! Gifts to sledge assignment logic
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Assignment	
+forall(p in GiftIDs, s in Sledges) do
+  create( giftUseSledge(p, s) )
+  giftUseSledge(p, s) is_binary
+end-do
+
+! All gifts must be assingned to a sledge
+forall(p in GiftIDs) sum( s in Sledges ) giftUseSledge(p, s) = 1;
+
+! Sledge capacities	
+forall(s in Sledges)
+  sum(p in GiftIDs) giftUseSledge(p, s)*Weight(p) <= SLEDGECAPACITY
+
+! Each gift should only use the sledge they are assigned to
+forall(s in Sledges, p in GiftIDs, c in Locations, d in Locations)
+  giftUseEdge( s, p, c, d ) <= giftUseSledge(p, s)
+ 
+! And finally the relation creating the connection between travelling gifts 
+! and sledges: If a gift assigned to a sledge is travelling on an edge,
+! so must do the sledge as well
+forall(s in Sledges, p in GiftIDs, c in Locations, d in Locations)	
+  giftUseEdge( s, p, c, d ) <= sledgeUseEdge( s, c, d )
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		
+! Optimize
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+GiftTravelCost := sum(s in Sledges, p in GiftIDs, c in Locations, d in Locations) giftUseEdge(s, p, c, d)*Weight(p)*Distance(c,d)
+SledgeSelfWeightTravelCost := sum(s in Sledges, c in Locations, d in Locations) sledgeUseEdge(s,c,d)*Distance(c,d)*SLEDGEWEIGHT
+SledgeHomeTravelWeightCost := sum(s in Sledges, c in Locations) sledgeFinal(s,c)*Distance(c,0)*SLEDGEWEIGHT	
+		
+! Solver parameters
+setparam("xprs_verbose", 1)
+setparam("xprs_maxtime", TIME) ! <0: limit or when a feasible solutuon is found
+setparam("xprs_threads", THREADS) ! 10m or when a feasible solutuon is found
+
+! Minimize weighted travel distance of gifts
+minimize( GiftTravelCost + SledgeSelfWeightTravelCost + SledgeHomeTravelWeightCost)		
+	
+!writeprob("ExportedLP", "l")	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!		
+! Reporting
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
+
+! Report results
+writeln
+writeln("GIFT TRAVEL");
+forall(p in GiftIDs) do	
+  ! Find the sledge the gift is travelling on
+  forall(s in Sledges | giftUseSledge(p, s).sol > 0.5) do
+    sledgeUsed := s
+    break
+  end-do 
+  write("p", p, "(->", GiftDestination(p), " on ", sledgeUsed, "):: ")
+  forall(c in Locations, d in Locations |	
+         giftUseEdge(sledgeUsed, p, c, d).sol > 0.5 )
+    write(c, "->", d, " ");
+  writeln
+end-do	
+writeln
+	
+! Print how sledges are travelling
+writeln("SLEDGE TRAVEL:")
+forall(s in Sledges) do	
+  write("s", s, ":: ")
+  forall(c in Locations, d in Locations) do	
+   if sledgeUseEdge(s, c, d).sol > 0.5 then
+     write(c, "->", d, " ");
+   end-if
+  end-do
+  writeln
+end-do		
+	
+! Generate report by following the path of each sledge
+writeln
+fopen("subm"+FILE, F_OUTPUT)
+writeln("OrderID, TripId, GiftId")
+line := 0
+forall(s in Sledges) do	
+  start  := 0
+  finish := 0  
+  ! Find first finish edge
+  forall(c in Locations | sledgeUseEdge(s, 0, c).sol > 0.5 ) do
+    finish := c
+    line := line+1
+    writeln(line, ", ",s,", ",c)
+    break
+  end-do
+  while (finish <> 0) do
+    start  := finish 
+    finish := 0
+    forall(c in Locations | sledgeUseEdge(s, start, c).sol > 0.5 ) do
+      finish := c
+      line := line+1
+      writeln(line, ", ",s,", ",c)
+    end-do
+  end-do      
+end-do
+	
+end-model
+
+
+
+
+
