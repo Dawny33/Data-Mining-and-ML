@@ -1,5 +1,6 @@
 name: Post welcome comment
 on:
+  push:
   pull_request:
     types: [opened]
 
