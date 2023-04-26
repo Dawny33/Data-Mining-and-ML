@@ -1,8 +1,6 @@
 name: Post welcome comment
 on:
   push:
-  pull_request:
-    types: [opened]
 
 jobs:
   my-jobs:
@@ -14,7 +12,7 @@ jobs:
           script: |
             const comment = "Hello, World!"
             const { owner, repo } = context.repo;
-            const { number } = context.payload.pull_request;
+            const { number } = context.payload;
             octokit.issues.createComment({
               owner,
               repo,
