@@ -1,22 +1,15 @@
-name: Post welcome comment
-on:
-  push:
+name: commit comment
+on: push
 
 jobs:
-  my-jobs:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Write PR comment
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const comment = "Hello, World!"
-            const { owner, repo } = context.repo;
-            const { number } = context.payload;
-            github.issues.createComment({
-              owner,
-              repo,
-              issue_number: number,
-              body: comment
-            });
-
+      - uses: actions/checkout@v1
+      - name: Add commit comment
+        run: |
+          jq -nc '{"body": "test comment"}' | \
+          curl -sL  -X POST -d @- \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
