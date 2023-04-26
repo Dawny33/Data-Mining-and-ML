@@ -2,5 +2,22 @@ name: Post welcome comment
 on:
   pull_request:
     types: [opened]
-  permissions:
-    pull-requests: write
+
+jobs:
+  my-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write PR comment
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const comment = "Hello, World!"
+            const { owner, repo } = context.repo;
+            const { number } = context.payload.pull_request;
+            octokit.issues.createComment({
+              owner,
+              repo,
+              issue_number: number,
+              body: comment
+            });
+
