@@ -13,7 +13,7 @@ jobs:
             const comment = "Hello, World!"
             const { owner, repo } = context.repo;
             const { number } = context.payload;
-            octokit.issues.createComment({
+            github.issues.createComment({
               owner,
               repo,
               issue_number: number,
