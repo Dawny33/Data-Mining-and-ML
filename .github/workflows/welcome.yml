@@ -1,6 +1,6 @@
 name: commit comment
 on: 
-  push
+  push:
   schedule:
     - cron: "0 3 * * 1" # Runs at 03:00 AM (UTC) every Monday(Check https://crontab.tech/)
 
