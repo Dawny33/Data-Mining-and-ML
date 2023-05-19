@@ -1,0 +1,28 @@
+name: commit comment
+on: 
+  push:
+  schedule:
+    - cron: "0 3 * * 1" # Runs at 03:00 AM (UTC) every Monday(Check https://crontab.tech/)
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Add commit comment
+        run: |
+          jq -nc '{"body": "test comment"}' | \
+          curl -sL  -X POST -d @- \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
+
+      - name: Sets up python requirements
+        run: |
+          pip install -r ./gh_actions/requirements.txt
+
+      - name: Run Python hello script
+        run: |
+          python ./gh_actions/hello.py
+
